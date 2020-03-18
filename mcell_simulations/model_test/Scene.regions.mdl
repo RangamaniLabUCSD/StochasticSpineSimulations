@@ -1,0 +1,23 @@
+MODIFY_SURFACE_REGIONS
+{
+  spine[PSD]
+  {
+    SURFACE_CLASS = PSD
+  }
+  /*spine[P_membrane]
+  {
+    SURFACE_CLASS = P_membrane
+  }*/
+  SA[SA_membrane]
+  {
+    SURFACE_CLASS = SA_membrane
+  }
+  /*spine[ALL]
+  {
+    SURFACE_CLASS = Clamp
+  }*/
+  spine[BASE]
+  {
+    SURFACE_CLASS = Base
+  }
+}
