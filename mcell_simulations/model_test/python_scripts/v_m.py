@@ -16,7 +16,7 @@ def BPAP(t):
 		I_bss * math.pow(math.e, -1 * (t - tdelaybp) / t_bss))
 	return num
 
-s_term = 25 # idk what this is TOTO: figure out lol (mV)
+s_term = 25 # (mV)
 tdelay = 0 # no delay for epsp (ms)
 tep1 = 50 # time coefficient (ms)
 tep2 = 5 # time coefficient (ms)
