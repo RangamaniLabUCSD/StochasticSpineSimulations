@@ -1,17 +1,20 @@
-### code for generating an n-dimensional, m-order Hilbert curve on the unit hypercube (credit for code goes to Aldo Cortesi)
+## script for generating an n-dimensional, m-order hilbert curve on the unit hypercube
 
-dim = 2 #dimension
-order = 5 #order of the curve
-sidelength = 2**order
+n = 3 #dimensions
+m = 4 #number of iterations
 
-import hilbert
+from hilbertcurve.hilbertcurve import HilbertCurve
 
-c = [] #ordered list of points on the hilbert curve
+side_length = 2**m
 
-for idx in range(sidelength**dim):
-	point = hilbert.hilbert_point(dim, order, idx)
-	for i in range(len(point)):
-		point[i] = point[i] / sidelength
+c = []
+hilbert_curve = HilbertCurve(m, n)
+
+for idx in range(side_length**n):
+	coords = hilbert_curve.coordinates_from_distance(idx)
+	point = []
+	for value in coords:
+		point.append(value / side_length)
 	c.append(point)
 
 print(c)
