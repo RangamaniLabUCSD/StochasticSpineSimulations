@@ -1,0 +1,23 @@
+MODIFY_SURFACE_REGIONS
+{
+  cylinder[left_end]
+  {
+    SURFACE_CLASS = clamp
+  }
+  cylinder[right_end]
+  {
+    SURFACE_CLASS = absorb
+  }
+  circle[ALL]
+  {
+    SURFACE_CLASS = transp
+  }
+  Cylinder.001[ALL]
+  {
+    SURFACE_CLASS = transp
+  }
+  Cylinder.002[ALL]
+  {
+    SURFACE_CLASS = transp
+  }
+}

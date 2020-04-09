@@ -1,0 +1,15 @@
+DEFINE_SURFACE_CLASSES
+{
+  clamp
+  {
+    CLAMP_CONCENTRATION vm, = cl
+  }
+  absorb
+  {
+    ABSORPTIVE = vm
+  }
+  transp
+  {
+    TRANSPARENT = vm
+  }
+}

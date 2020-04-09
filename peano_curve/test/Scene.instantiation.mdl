@@ -1,0 +1,12 @@
+INSTANTIATE Scene OBJECT
+{
+  cylinder OBJECT cylinder {}
+  circle OBJECT circle {}
+  Cylinder.001 OBJECT Cylinder.001 {}
+  Cylinder.002 OBJECT Cylinder.002 {}
+  hilbertcurve0 OBJECT hilbertcurve0 {}
+  hilbertcurve1 OBJECT hilbertcurve1 {}
+  hilbertcurve2 OBJECT hilbertcurve2 {}
+  hilbertcurve3 OBJECT hilbertcurve3 {}
+  hilbertcurve4 OBJECT hilbertcurve4 {}
+}

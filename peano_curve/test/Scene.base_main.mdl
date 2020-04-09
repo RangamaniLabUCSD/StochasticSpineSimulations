@@ -1,0 +1,95 @@
+/* DEFINE PARAMETERS */
+iters = 5000
+dt = 1e-06
+Na = 6.0221415e23
+area = 1.2441e-11
+dx = 5e-7
+dc = 5e-6
+cl = 2e-5
+
+ITERATIONS = iters
+TIME_STEP = dt
+VACANCY_SEARCH_DISTANCE = 10
+
+SURFACE_GRID_DENSITY = 10000
+ACCURATE_3D_REACTIONS = TRUE
+CENTER_MOLECULES_ON_GRID = FALSE
+MICROSCOPIC_REVERSIBILITY = OFF
+
+NOTIFICATIONS
+{
+   PROBABILITY_REPORT = ON
+   DIFFUSION_CONSTANT_REPORT = BRIEF
+   FILE_OUTPUT_REPORT = OFF
+   FINAL_SUMMARY = ON
+   ITERATION_REPORT = ON
+   PARTITION_LOCATION_REPORT = OFF
+   VARYING_PROBABILITY_REPORT = ON
+   PROGRESS_REPORT = ON
+   RELEASE_EVENT_REPORT = ON
+   MOLECULE_COLLISION_REPORT = OFF
+}
+
+WARNINGS
+{
+   DEGENERATE_POLYGONS = WARNING
+   NEGATIVE_DIFFUSION_CONSTANT = WARNING
+   MISSING_SURFACE_ORIENTATION = ERROR
+   NEGATIVE_REACTION_RATE = WARNING
+   USELESS_VOLUME_ORIENTATION = WARNING
+   HIGH_REACTION_PROBABILITY = IGNORED
+   LIFETIME_TOO_SHORT = WARNING
+   LIFETIME_THRESHOLD = 50
+   MISSED_REACTIONS = WARNING
+   MISSED_REACTION_THRESHOLD = 0.00100000004749745
+}
+
+DEFINE_MOLECULES
+{
+  vm
+  {
+    DIFFUSION_CONSTANT_3D = dc
+  }
+}
+
+INCLUDE_FILE = "Scene.surface.mdl"
+
+INCLUDE_FILE = "Scene.geometry.mdl"
+
+INCLUDE_FILE = "Scene.regions.mdl"
+
+INSTANTIATE Scene OBJECT
+{
+  cylinder OBJECT cylinder {}
+  circle OBJECT circle {}
+  Cylinder.001 OBJECT Cylinder.001 {}
+  Cylinder.002 OBJECT Cylinder.002 {}
+}
+
+sprintf(seed, "%05g", SEED)
+
+VIZ_OUTPUT
+{ 
+  MODE = CELLBLENDER
+  FILENAME = "./viz_data/seed_" & seed & "/Scene"
+  MOLECULES
+  { 
+    NAME_LIST {ALL_MOLECULES}
+    ITERATION_NUMBERS {ALL_DATA @ ALL_ITERATIONS}
+  }
+}
+
+REACTION_DATA_OUTPUT
+{
+  STEP=dt
+  /*{COUNT[vm,WORLD]}=> "./react_data/seed_" & seed & "/vm_base.dat"
+  {COUNT[vm,Scene.circle,FRONT_CROSSINGS]}=>"./react_data/seed_" & seed & "/vm_circle_front.dat"
+  {COUNT[vm,Scene.circle,BACK_CROSSINGS]}=>"./react_data/seed_" & seed & "/vm_circle_back.dat"
+  {COUNT[vm,Scene.circle,BACK_CROSSINGS] - COUNT[vm,Scene.circle,FRONT_CROSSINGS]}=>"./react_data/seed_" & seed & "/vm_circle_diff.dat"
+  {COUNT[vm,Scene.Cylinder.001] - COUNT[vm,Scene.Cylinder.002]}=>"./react_data/seed_" & seed & "/vm_count_diff.dat"*/
+  {COUNT[vm,WORLD]}=> "./react_data_base/vm_base." & seed & ".dat"
+  {COUNT[vm,Scene.circle,FRONT_CROSSINGS]}=>"./react_data_base/vm_circle_front." & seed & ".dat"
+  {COUNT[vm,Scene.circle,BACK_CROSSINGS]}=>"./react_data_base/vm_circle_back." & seed & ".dat"
+  {COUNT[vm,Scene.circle,BACK_CROSSINGS] - COUNT[vm,Scene.circle,FRONT_CROSSINGS]}=>"./react_data_base/vm_circle_diff." & seed & ".dat"
+  {COUNT[vm,Scene.Cylinder.001] - COUNT[vm,Scene.Cylinder.002]}=>"./react_data_base/vm_count_diff." & seed & ".dat"
+}
