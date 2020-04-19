@@ -1,4 +1,4 @@
-## script for graphing the first three iterations of the three-dimensional Hilbert Curve using matplotlib
+## script for graphing the first three iterations of the three-dimensional Hilbert Curve superimposed on each other using matplotlib
 
 n = 3 #dimensions
 m_max = 3 #max number of iterations to graph

@@ -1,3 +1,7 @@
+/* model main mdl file for spine simulations */
+/* specific parameter values may be different depending on the simulation; as such, each individual simulation should have its own main mdl file, based on the structure of this one */
+/* instantiation, molecule, and reaction mdl files should be the same between all simulations, but the geometry, regions, and surface mdl files may differ*/ 
+
 /* DEFINE PARAMETERS */
 Ca_cyto_IC = 1e-7
 Ca_ER_IC = 6e-5

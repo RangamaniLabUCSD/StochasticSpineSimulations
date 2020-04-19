@@ -1,4 +1,4 @@
-##something such that I create point choosing density function based on how close together the points are, and a maximum number of points to choose
+## generates a 3D, rotationally-symmetric mesh of a filopodial spline from the 2D profile provided in filopodial.txt
 
 import netgen as ng
 import matplotlib.pyplot as plt
@@ -51,6 +51,7 @@ print(indices)
 
 new_points = []
 
+# the code below is needed because netgen's revolution algorithm doesn't like it when there are three or more consecutive points lying parallel to the axis of revolution
 for index in indices:
 	if len(new_points) == 0 or abs(new_points[len(new_points) - 1][1] - \
 				points[index][0]) > 1e-4:

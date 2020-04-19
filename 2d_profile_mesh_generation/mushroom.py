@@ -1,4 +1,4 @@
-##something such that I create point choosing density function based on how close together the points are, and a maximum number of points to choose
+## generates a 3D, rotationally-symmetric mesh of a mushroom-shaped spline from the 2D profile provided in mushroom.txt
 
 import netgen as ng
 import matplotlib.pyplot as plt

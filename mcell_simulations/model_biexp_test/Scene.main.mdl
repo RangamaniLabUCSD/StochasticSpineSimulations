@@ -1,3 +1,5 @@
+/*mdl file for a test simulation that utilizes vscc rates scaled by a time bioexponential (all files are the same as in no_biexp, with the exception of the vscc_rate_scaled.py file in python_scripts)*/
+
 /* DEFINE PARAMETERS */
 Ca_cyto_IC = 1e-7
 Ca_ER_IC = 6e-5

@@ -1,4 +1,4 @@
-## script for generating an n-dimensional, m-order hilbert curve on the unit hypercube and outputting a 3D MCell geometry thereof
+## script for generating an n-dimensional, m-order hilbert curve on the unit hypercube and outputting a 3D MCell geometric mesh thereof
 
 n = 3 #dimensions
 m = 3 #number of iterations

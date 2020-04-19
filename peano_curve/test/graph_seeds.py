@@ -1,4 +1,4 @@
-#graphing the averaged results of multiple MCell simulation seeds
+#graphing the averaged results of multiple MCell test Hilbert Curve diffusion simulation seeds
 
 import numpy as np
 import matplotlib.pyplot as plt

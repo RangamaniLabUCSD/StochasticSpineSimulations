@@ -1,4 +1,7 @@
 #script to run an input MCell file for number of different seeds
+# arg 1: mdl file to run
+# arg 2: number of seeds to use
+# arg 3 (optional): path to the mcell binary to use, if it isn't in the path 
 
 import os, sys
 
