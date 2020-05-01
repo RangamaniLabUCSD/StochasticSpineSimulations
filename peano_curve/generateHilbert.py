@@ -11,12 +11,12 @@ import math
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 
-side_length = 2**m
+side_length = 2**m - 1
 
 c = []
 hilbert_curve = HilbertCurve(m, n)
 
-for idx in range(side_length**n):
+for idx in range((side_length + 1)**n):
 	coords = hilbert_curve.coordinates_from_distance(idx)
 	point = []
 	#for value in coords:
