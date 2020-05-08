@@ -20,11 +20,15 @@ def J_VSCC(t, V_m):
 		math.pow(math.e, -1 * beta_4 * t))
 	return num
 
+DT, ms_scale = 0, 0
 outfile = open("vscc_rate_scaled.txt", "w+")
 with open("v_m.txt") as infile:
     for line in infile:
         group = re.split("  ", line)
         t = group[0]
+        if DT == 0:
+            DT = float(t)
+            ms_scale = (1e-3) / DT
         V_m = group[1]
         outfile.write(t + "  " + str(0.002 * k_Ca2(float(V_m))) + "\n")
-        #outfile.write(t + "  " + str((2e-12)*abs(k_Ca2(float(V_m)) * (math.pow(math.e, -1 * alpha_4 * float(t) * 1000) - math.pow(math.e, -1 * beta_4 * float(t) * 1000))) ) + "\n")
+        #outfile.write(t + "  " + str(0.002 * abs(k_Ca2(float(V_m)) * (math.pow(math.e, -1 * alpha_4 * float(t) * ms_scale) - math.pow(math.e, -1 * beta_4 * float(t) * ms_scale))) ) + "\n")

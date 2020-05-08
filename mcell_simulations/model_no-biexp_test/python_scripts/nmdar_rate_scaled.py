@@ -40,6 +40,7 @@ def J_NMDAR(t, V):
 	num = gamma_i(t, V) * n_NMDAR / (Beta * A_psd)
 	return num
 
+DT, ms_scale = 0, 0
 outfile = open("nmdar_rate_scaled.txt", "w+")
 with open("v_m.txt") as infile: #TODO
 	for line in infile:
@@ -47,4 +48,7 @@ with open("v_m.txt") as infile: #TODO
 		#print(float(group[0]), float(group[1]))
 		t = group[0]
 		V = group[1]
-		outfile.write(t + "  " + str(abs(0.002 * gamma_i(1000 * float(t), float(V)))) + "\n")
+		if DT == 0:
+			DT = float(t)
+			ms_scale = (1e-3) / DT
+		outfile.write(t + "  " + str(abs(0.002 * gamma_i(ms_scale * float(t), float(V)))) + "\n")

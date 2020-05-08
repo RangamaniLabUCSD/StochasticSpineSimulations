@@ -1,4 +1,4 @@
-NUM_TIMESTEPS = 1000
+NUM_TIMESTEPS = 10000
 DT = 1e-6
 
 import math

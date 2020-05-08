@@ -1,0 +1,87 @@
+DEFINE_MOLECULES
+{
+  Ca2
+  {
+    DIFFUSION_CONSTANT_3D = 2.2e-6
+  }
+  Bm
+  {
+    DIFFUSION_CONSTANT_3D = 2e-7
+  }
+  CaBm
+  {
+    DIFFUSION_CONSTANT_3D = 2e-7
+  }
+  NMDAR
+  {
+    DIFFUSION_CONSTANT_2D = 0
+  }
+  Bf
+  {
+    DIFFUSION_CONSTANT_2D = 0
+  }
+  CaBf
+  {
+    DIFFUSION_CONSTANT_2D = 0
+  }
+  VSCC
+  {
+    DIFFUSION_CONSTANT_2D = 0
+  }
+  PMCA
+  {
+    DIFFUSION_CONSTANT_2D = 0
+  }
+  PMCA1
+  {
+    DIFFUSION_CONSTANT_2D = 0
+  }
+  NCX
+  {
+    DIFFUSION_CONSTANT_2D = 0
+  }
+  NCX1
+  {
+    DIFFUSION_CONSTANT_2D = 0
+  }
+  SERCAx
+  {
+    DIFFUSION_CONSTANT_2D = 0
+  }
+  SERCAx1
+  {
+    DIFFUSION_CONSTANT_2D = 0
+  }
+  SERCAx2
+  {
+    DIFFUSION_CONSTANT_2D = 0
+  }
+  SERCAy
+  {
+    DIFFUSION_CONSTANT_2D = 0
+  }
+  SERCAy1
+  {
+    DIFFUSION_CONSTANT_2D = 0
+  }
+  SERCAy2
+  {
+    DIFFUSION_CONSTANT_2D = 0
+  }
+  VSCC_0
+  {
+    DIFFUSION_CONSTANT_2D = 0
+  }
+  VSCC_1
+  {
+    DIFFUSION_CONSTANT_2D = 0
+  }
+  VSCC_2
+  {
+    DIFFUSION_CONSTANT_2D = 0
+  }
+  VSCC_3
+  {
+    DIFFUSION_CONSTANT_2D = 0
+  }
+}
