@@ -1,8 +1,8 @@
 import math
 import re
 
-a_ = [8.08, 13.4, 8.78, 34.7] #ms, scaling factor in forward exponential
-b_ = [5.76, 12.6, 16.3, 3.68] #ms, scaling factor in reverse exponential
+a_ = [8.08, 13.4, 8.78, 34.7] #ms^-1, scaling factor in forward exponential
+b_ = [5.76, 12.6, 16.3, 3.68] #ms^-1, scaling factor in reverse exponential
 V_ = [49.14, 42.08, 55.31, 26.55] #mV, scaling factor in exponential rates
 
 def rate(a_b, V_i, V):

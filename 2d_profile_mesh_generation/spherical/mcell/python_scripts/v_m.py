@@ -27,9 +27,7 @@ def EPSP(t):
 
 file = open("v_m.txt", "w+")
 
-ms_scale = (1e-3) / DT
-
 for i in range(NUM_TIMESTEPS):
     time = (i + 1) / math.pow(DT, -1) #/ 1000000 #timestep 1e-6
-    line = str(time) + "  " + str(V_rest + BPAP(time * ms_scale) + EPSP(time * ms_scale)) + "\n"
+    line = str(time) + "  " + str(V_rest + BPAP(time * 1000) + EPSP(time * 1000)) + "\n"
     file.write(line)

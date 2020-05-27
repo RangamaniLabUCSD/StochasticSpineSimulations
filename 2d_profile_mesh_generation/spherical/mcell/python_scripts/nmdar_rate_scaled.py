@@ -30,8 +30,8 @@ T_s = 200 # ms
 V_r = 90 # reference voltage or something? (mV)
 def gamma_i(t, V):
 	#num = P0 * G_NMDAR * B(V) * (V - V_r) TODO: the time exponential thing is almost equal to 1 most of the time; should it be included or not?
-	num = P0 * G_NMDAR * (I_f * math.pow(math.e, -1 * t / T_f) + I_s * math.pow(math.e, -1 * t / T_s)) * B(V) * (V - V_r)
-	return num / 50
+	num = P0 * G_NMDAR * (I_f * math.pow(math.e, -1 * t / T_f) + I_s * math.pow(math.e, -1 * t / T_s)) * B(V) * (V - V_r) * (1e-3)
+	return num / Beta
 
 N_A = 6.022e23
 N_F = 96485
@@ -40,7 +40,6 @@ def J_NMDAR(t, V):
 	num = gamma_i(t, V) * n_NMDAR / (Beta * A_psd)
 	return num
 
-DT, ms_scale = 0, 0
 outfile = open("nmdar_rate_scaled.txt", "w+")
 with open("v_m.txt") as infile: #TODO
 	for line in infile:
@@ -48,7 +47,4 @@ with open("v_m.txt") as infile: #TODO
 		#print(float(group[0]), float(group[1]))
 		t = group[0]
 		V = group[1]
-		if DT == 0:
-			DT = float(t)
-			ms_scale = (1e-3) / DT
-		outfile.write(t + "  " + str(abs(0.002 * gamma_i(ms_scale * float(t), float(V)))) + "\n")
+		outfile.write(t + "  " + str(abs(gamma_i(1000 * float(t), float(V)))) + "\n")
