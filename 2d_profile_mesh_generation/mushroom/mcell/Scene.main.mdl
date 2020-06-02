@@ -59,10 +59,10 @@ INCLUDE_FILE = "Scene.regions.mdl"
 
 INSTANTIATE Scene OBJECT
 {
-  Spherical OBJECT Spherical {}
+  Mushroom OBJECT Mushroom {}
   Release_Site_1 RELEASE_SITE
   {
-   SHAPE = Scene.Spherical
+   SHAPE = Scene.Mushroom
    MOLECULE = Ca2
    CONCENTRATION = Ca_cyto_IC
    RELEASE_PROBABILITY = 1
@@ -83,49 +83,49 @@ INSTANTIATE Scene OBJECT
   }*/
   Release_Site_4 RELEASE_SITE
   {
-   SHAPE = Scene.Spherical[head]
+   SHAPE = Scene.Mushroom[head]
    MOLECULE = PMCA'
    DENSITY = PMCA_IC_HEAD
    RELEASE_PROBABILITY = 1
   }
 Release_Site_5 RELEASE_SITE
   {
-   SHAPE = Scene.Spherical[neck]
+   SHAPE = Scene.Mushroom[neck]
    MOLECULE = PMCA'
    DENSITY = PMCA_IC_NECK
    RELEASE_PROBABILITY = 1
   }
 Release_Site_6 RELEASE_SITE
   {
-   SHAPE = Scene.Spherical[head]
+   SHAPE = Scene.Mushroom[head]
    MOLECULE = NCX'
    DENSITY = NCX_IC_HEAD
    RELEASE_PROBABILITY = 1
   }
 Release_Site_7 RELEASE_SITE
   {
-   SHAPE = Scene.Spherical[neck]
+   SHAPE = Scene.Mushroom[neck]
    MOLECULE = NCX'
    DENSITY = NCX_IC_NECK
    RELEASE_PROBABILITY = 1
   }
 Release_Site_8 RELEASE_SITE
   {
-   SHAPE = Scene.Spherical
+   SHAPE = Scene.Mushroom
    MOLECULE = Bm
    CONCENTRATION = Bm_IC
    RELEASE_PROBABILITY = 1
   }
 Release_Site_9 RELEASE_SITE
   {
-   SHAPE = Scene.Spherical
+   SHAPE = Scene.Mushroom
    MOLECULE = Bf'
    DENSITY = Bf_IC
    RELEASE_PROBABILITY = 1
   }
 Release_Site_10 RELEASE_SITE
   {
-   SHAPE = Scene.Spherical
+   SHAPE = Scene.Mushroom
    MOLECULE = VSCC_0'
    /*NUMBER_TO_RELEASE = 20*/
    DENSITY = VSCC_IC
@@ -133,7 +133,7 @@ Release_Site_10 RELEASE_SITE
   }
 Release_Site_11 RELEASE_SITE
   {
-   SHAPE = Scene.Spherical[PSD]
+   SHAPE = Scene.Mushroom[PSD]
    MOLECULE = NMDAR'
    NUMBER_TO_RELEASE = n_NMDAR
    RELEASE_PROBABILITY = 1
@@ -156,13 +156,13 @@ VIZ_OUTPUT
 REACTION_DATA_OUTPUT
 {
   STEP=1e-06
-  {COUNT[Ca2,Scene.Spherical]}=> "./react_data_spherical/Ca2.spine." & seed & ".dat"
-  /*{COUNT[Ca2,Scene.SA]}=> "./react_data/seed_" & seed & "/Ca2.SA.dat"*/
-  {COUNT[Ca2,WORLD]}=> "./react_data_spherical/Ca2.World." & seed & ".dat"
-  {COUNT[CaBm,Scene.Spherical]}=> "./react_data_spherical/CaBm.spine." & seed & ".dat"
-  /*{COUNT[CaBm,Scene.SA]}=> "./react_data/seed_" & seed & "/CaBm.SA.dat"*/
-  {COUNT[CaBf,Scene.Spherical]}=> "./react_data_spherical/CaBf.spine." & seed & ".dat"
-  {COUNT[Bf,Scene.Spherical]}=> "./react_data_spherical/Bf.spine." & seed & ".dat"
-  {COUNT[Bm,Scene.Spherical]}=> "./react_data_spherical/Bm.spine." & seed & ".dat"
-  {COUNT[CaBf,WORLD]+COUNT[CaBm,WORLD]+COUNT[PMCA1,WORLD]+COUNT[NCX1,WORLD]+COUNT[SERCAx1,WORLD]+COUNT[SERCAx2,WORLD]+COUNT[SERCAy1,WORLD]+COUNT[SERCAy2,WORLD]+COUNT[Ca2,Scene.Spherical]}=> "./react_data_spherical/Ca2_total.spine." & seed & ".dat"
+  {COUNT[Ca2,Scene.Mushroom]}=> "./react_data_mushroom/Ca2.spine." & seed & ".dat"
+  /*{COUNT[Ca2,Scene.SA]}=> "./react_data/seed_" & seed & ".Ca2.SA.dat"*/
+  {COUNT[Ca2,WORLD]}=> "./react_data_mushroom/Ca2.World." & seed & ".dat"
+  {COUNT[CaBm,Scene.Mushroom]}=> "./react_data_mushroom/CaBm.spine." & seed & ".dat"
+  /*{COUNT[CaBm,Scene.SA]}=> "./react_data/seed_" & seed & ".CaBm.SA.dat"*/
+  {COUNT[CaBf,Scene.Mushroom]}=> "./react_data_mushroom/CaBf.spine." & seed & ".dat"
+  {COUNT[Bf,Scene.Mushroom]}=> "./react_data_mushroom/Bf.spine." & seed & ".dat"
+  {COUNT[Bm,Scene.Mushroom]}=> "./react_data_mushroom/Bm.spine." & seed & ".dat"
+  {COUNT[CaBf,WORLD]+COUNT[CaBm,WORLD]+COUNT[PMCA1,WORLD]+COUNT[NCX1,WORLD]+COUNT[SERCAx1,WORLD]+COUNT[SERCAx2,WORLD]+COUNT[SERCAy1,WORLD]+COUNT[SERCAy2,WORLD]+COUNT[Ca2,Scene.Mushroom]}=> "./react_data_mushroom/Ca2_total.spine." & seed & ".dat"
 }

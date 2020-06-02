@@ -1,0 +1,22 @@
+DEFINE_SURFACE_CLASSES
+{
+  PSD
+  {
+  }
+  P_membrane
+  {
+    REFLECTIVE = ALL_VOLUME_MOLECULES;
+  }
+  SA_membrane
+  {
+    REFLECTIVE = ALL_VOLUME_MOLECULES;
+  }
+  Clamp
+  {
+    CLAMP_CONCENTRATION Ca2' = Ca_ECS_IC
+  }
+  Base
+  {
+    CLAMP_CONCENTRATION Ca2, = 0
+  }
+}

@@ -1,0 +1,23 @@
+MODIFY_SURFACE_REGIONS
+{
+  Filopodial[PSD]
+  {
+    SURFACE_CLASS = PSD
+  }
+  /*spine[P_membrane]
+  {
+    SURFACE_CLASS = P_membrane
+  }
+  SA[SA_membrane]
+  {
+    SURFACE_CLASS = SA_membrane
+  }
+  spine[ALL]
+  {
+    SURFACE_CLASS = Clamp
+  }*/
+  Filopodial[base]
+  {
+    SURFACE_CLASS = Base
+  }
+}
