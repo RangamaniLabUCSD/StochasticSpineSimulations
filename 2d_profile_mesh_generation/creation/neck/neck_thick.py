@@ -8,7 +8,7 @@ NUM_POINTS = 50
 
 points = []
 
-with open("/Users/mvhsan/Downloads/mushroom.txt") as meshfile:
+with open("../mushroom.txt") as meshfile:
 	meshfile.seek(0)
 	for line in meshfile:
 		values = line.split(" ")

@@ -9,7 +9,7 @@ NUM_POINTS = 50
 points = []
 y_origs = []
 
-with open("/Users/mvhsan/Downloads/spherical.txt") as meshfile:
+with open("../spherical.txt") as meshfile:
 	meshfile.seek(0)
 	for line in meshfile:
 		values = line.split(" ")
