@@ -1,0 +1,50 @@
+DEFINE_REACTIONS
+{
+  Ca2 + Bm <-> CaBm [>k_CaBm_f, <k_CaBm_r]
+  Ca2 -> NULL [>k_Ca_N] : Ca2Null
+  Ca2, + Bf' <-> CaBf' [>k_Ca_Bf_f, <k_Ca_Bf_r]
+  /* NMDAR' -> NMDAR' + Ca2, ["../python_scripts/nmdar_rate_scaled.txt"] : rxn_NMDAR */
+  VSCC' -> VSCC' + Ca2, ["../python_scripts/vscc_rate_scaled.txt"] : rxn_VSCC
+  /*Ca2, @ SA_membrane' -> Ca2' [k_SA_leak] : rxn_SERCA_leak*/
+  Ca2, + PMCA' <-> PMCA1' [>k_PMCA_1, <k_PMCA_2]
+  PMCA1' -> PMCA' /*+ Ca2'*/ [k_PMCA_3] : rxn_PMCA
+  PMCA' -> PMCA' + Ca2, [k_PMCA_leak] : rxn_PMCA_leak
+  Ca2, + NCX' <-> NCX1' [>k_NCX_1, <k_NCX_2]
+  NCX1' -> NCX' /*+ Ca2'*/ [k_NCX_3] : rxn_NCX
+  NCX' -> NCX' + Ca2, [k_NCX_leak] : rxn_NCX_leak
+  SERCAx' + Ca2' -> SERCAx1' [k_SERCA_x0x1] : rxn_SERCA1f
+  SERCAx1' -> SERCAx' + Ca2' [k_SERCA_x1x0] : rxn_SERCA1r
+  SERCAx1' + Ca2' -> SERCAx2' [k_SERCA_x1x2] : rxn_SERCA2f
+  SERCAx2' -> SERCAx1' + Ca2' [k_SERCA_x2x1] : rxn_SERCA2r
+  SERCAx2' <-> SERCAy2' [>k_SERCA_x2y2, <k_SERCA_y2x2]
+  SERCAy2' <-> SERCAy1' + Ca2, [>k_SERCA_y2y1, <k_SERCA_y1y2]
+  SERCAy1' <-> SERCAy' + Ca2, [>k_SERCA_y1y0, <k_SERCA_y0y1]
+  SERCAy' <-> SERCAx' [>k_SERCA_y0x0, <k_SERCA_x0y0]
+  /*Ca2, + SERCAx' -> SERCAx' + Ca2' [k_SERCA_leak]*/
+  VSCC_0' <-> VSCC_1' [>"../python_scripts/vscc_1_forward_scaled.txt", <"../python_scripts/vscc_1_reverse_scaled.txt"]
+  VSCC_1' <-> VSCC_2' [>"../python_scripts/vscc_2_forward_scaled.txt", <"../python_scripts/vscc_2_reverse_scaled.txt"]
+  VSCC_2' <-> VSCC_3' [>"../python_scripts/vscc_3_forward_scaled.txt", <"../python_scripts/vscc_3_reverse_scaled.txt"]
+  VSCC_3' <-> VSCC' [>"../python_scripts/vscc_4_forward_scaled.txt", <"../python_scripts/vscc_4_reverse_scaled.txt"]
+  /*NMDAR_0' <-> NMDAR_1' [>"../python_scripts/glutamate/C0-C1_forward.txt", <k_C1C0]
+  NMDAR_1' <-> NMDAR_2' [>"../python_scripts/glutamate/C1-C2_forward.txt", <k_C2C1]*/
+  NMDAR_0' + glu' <-> NMDAR_1' [>k_C0C1, <k_C1C0]
+  NMDAR_1' + glu' <-> NMDAR_2' [>k_C1C2, <k_C2C1]
+  NMDAR_2' <-> NMDAR' [>k_C2O, <k_OC2]
+  NMDAR_2' <-> NMDAR_D' [>k_C2D, <k_DC2]
+  /*NMDAR_0B' <-> NMDAR_1B' [>"../python_scripts/glutamate/C0-C1_forward.txt", <k_C1C0]
+  NMDAR_1B' <-> NMDAR_2B' [>"../python_scripts/glutamate/C1-C2_forward.txt", <k_C2C1]*/
+  NMDAR_0B' + glu' <-> NMDAR_1B' [>k_C0C1, <k_C1C0]
+  NMDAR_1B' + glu' <-> NMDAR_2B' [>k_C1C2, <k_C2C1]
+  NMDAR_2B' <-> NMDAR_B' [>k_C2Ob, <k_OC2b]
+  NMDAR_2B' <-> NMDAR_DB' [>k_C2D, <k_DC2]
+  NMDAR' <-> NMDAR_B' [>"../python_scripts/glutamate/k_B_rate.txt", <"../python_scripts/glutamate/k_U_rate.txt"]
+  NMDAR' -> NMDAR' + Ca2, ["../python_scripts/nmdar_rate_scaled.txt"] : rxn_NMDAR
+  AMPAR_0' + glu' <-> AMPAR_1' [>k_AMPAR_C0C1, <k_AMPAR_C1C0]
+  AMPAR_1' + glu' <-> AMPAR_2' [>k_AMPAR_C1C2, <k_AMPAR_C2C1]
+  AMPAR_2' <-> AMPAR' [>k_AMPAR_C2O, <k_AMPAR_OC2]
+  AMPAR_1' <-> AMPAR_3' [>k_AMPAR_C1C3, <k_AMPAR_C3C1]
+  AMPAR_3' + glu' <-> AMPAR_4' [>k_AMPAR_C3C4, <k_AMPAR_C4C3]
+  AMPAR_2' <-> AMPAR_4' [>k_AMPAR_C2C4, <k_AMPAR_C4C2]
+  AMPAR_4' <-> AMPAR_5' [>k_AMPAR_C4C5, <k_AMPAR_C5C4]
+  AMPAR_5' <-> AMPAR' [>k_AMPAR_C5O, <k_AMPAR_OC5]
+}

@@ -1,0 +1,250 @@
+/*mdl file for a test simulation that utilizes vscc rates scaled by a time bioexponential (all files are the same as in no_biexp, with the exception of the vscc_rate_scaled.py file in python_scripts)*/
+
+/* DEFINE PARAMETERS */
+Ca_cyto_IC = 1e-7
+Ca_ER_IC = 6e-5
+Ca_ECS_IC = 0
+Bf_IC = 4791 /*525*/
+Bm_IC = 2e-5 /*7.87e-5*/
+n_NMDAR = 7
+NMDAR_IC = 150
+VSCC_IC = 2 /*20*/
+PMCA_IC_HEAD = 998 /* um^-2 */
+PMCA_IC_NECK = 998 /*488*/ /* um^-2 */
+NCX_IC_HEAD = 142 /* um^-2 */
+NCX_IC_NECK = 142 /*488*/ /* um^-2 */
+SERCA_IC = 1000 /* um^-2 */
+k_CaBm_f = 1e6 /*1*/
+k_CaBm_r = 1
+k_Ca_N = 50
+k_Ca_Bf_f = 1e6 /*1*/
+k_Ca_Bf_r = 2
+k_SA_leak = 0.1608
+k_PMCA_1 = 1.5e8    /*    units=M^-1 s^-1 */
+k_PMCA_2 = 15    /*    units=s^-1 */
+k_PMCA_3 = 12    /*    units=s^-1 */
+k_PMCA_leak = 4.3    /*    units=s^-1 */
+k_NCX_1 = 3e8    /*    units=M^-1 s^-1 */
+k_NCX_2 = 300    /*    units=s^-1 */
+k_NCX_3 = 600    /*    units=s^-1 */
+k_NCX_leak = 19.4    /*    units=s^-1 */
+k_SERCA_x0x1 = 2e8    /*    units=M^-1 s^-1 */
+k_SERCA_x1x0 = 83.7    /*    units=s^-1 */
+k_SERCA_x1x2 = 1e8    /*    units=M^-1 s^-1 */
+k_SERCA_x2x1 = 167.4    /*    units=s^-1 */
+k_SERCA_x2y2 = 0.6    /*    units=s^-1 */
+k_SERCA_y2x2 = 0.097    /*    units=s^-1 */
+k_SERCA_x0y0 = 1.2e-3
+k_SERCA_y0x0 = 0.4    /*    units=s^-1 */
+k_SERCA_y0y1 = 12    /*    units=s^-1 */
+k_SERCA_y1y0 = 30.02    /*    units=s^-1 */
+k_SERCA_y1y2 = 6    /*    units=s^-1 */
+k_SERCA_y2y1 = 60.04    /*    units=s^-1 */
+k_SERCA_leak = 0.1608    /*    units=s^-1 */
+k_C0C1 = 2e7
+k_C1C0 = 11   /*    units=s^-1 */
+k_C1C2 = 1e7
+k_C2C1 = 22   /*    units=s^-1 */
+k_C2O = 93   /*    units=s^-1 */
+k_OC2 = 183.2   /*    units=s^-1 */
+k_C2Ob = 97   /*    units=s^-1 */
+k_OC2b = 574   /*    units=s^-1 */
+k_C2D = 16.8   /*    units=s^-1 */
+k_DC2 = 3.6   /* units=s^-1 */
+k_AMPAR_C0C1 = 9.18e6
+k_AMPAR_C1C0 = 8520
+k_AMPAR_C1C2 = 5.68e7
+k_AMPAR_C2C1 = 6520
+k_AMPAR_C2O = 8480
+k_AMPAR_OC2 = 1800
+k_AMPAR_C3C4 = 2.54e6
+k_AMPAR_C4C3 = 91.4
+k_AMPAR_C1C3 = 5780
+k_AMPAR_C3C1 = 78.4
+k_AMPAR_C2C4 = 344
+k_AMPAR_C4C2 = 1.45
+k_AMPAR_OC5 = 35.4
+k_AMPAR_C5O = 8
+k_AMPAR_C4C5 = 33.6
+k_AMPAR_C5C4 = 380.8
+AMPAR_IC = 1200
+n_AMPAR = 54
+n_glu = 500
+
+/*ITERATIONS = iters
+TIME_STEP = dt
+VACANCY_SEARCH_DISTANCE = 10*/
+
+INCLUDE_FILE = "../Scene.initialization.mdl"
+
+INCLUDE_FILE = "../Scene.molecules.mdl"
+
+INCLUDE_FILE = "../Scene.surface.mdl"
+
+INCLUDE_FILE = "../Scene.reactions.mdl"
+
+INCLUDE_FILE = "thin.mdl"
+
+INCLUDE_FILE = "../Scene.regions.mdl"
+
+INSTANTIATE Scene OBJECT
+{
+  Thin OBJECT Thin {}
+  presynapse OBJECT presynapse {}
+  Release_Site_1 RELEASE_SITE
+  {
+   SHAPE = Scene.Thin
+   MOLECULE = Ca2
+   CONCENTRATION = Ca_cyto_IC
+   RELEASE_PROBABILITY = 1
+  }
+  /*Release_Site_2 RELEASE_SITE
+  {
+   SHAPE = Scene.SA
+   MOLECULE = Ca2
+   CONCENTRATION = Ca_ER_IC
+   RELEASE_PROBABILITY = 1
+  }
+  Release_Site_3 RELEASE_SITE
+  {
+   SHAPE = Scene.SA
+   MOLECULE = SERCAx'
+   DENSITY = SERCA_IC
+   RELEASE_PROBABILITY = 1
+  }*/
+  Release_Site_4 RELEASE_SITE
+  {
+   SHAPE = Scene.Thin[head]
+   MOLECULE = PMCA'
+   DENSITY = PMCA_IC_HEAD
+   RELEASE_PROBABILITY = 1
+  }
+Release_Site_5 RELEASE_SITE
+  {
+   SHAPE = Scene.Thin[neck]
+   MOLECULE = PMCA'
+   DENSITY = PMCA_IC_NECK
+   RELEASE_PROBABILITY = 1
+  }
+Release_Site_6 RELEASE_SITE
+  {
+   SHAPE = Scene.Thin[head]
+   MOLECULE = NCX'
+   DENSITY = NCX_IC_HEAD
+   RELEASE_PROBABILITY = 1
+  }
+Release_Site_7 RELEASE_SITE
+  {
+   SHAPE = Scene.Thin[neck]
+   MOLECULE = NCX'
+   DENSITY = NCX_IC_NECK
+   RELEASE_PROBABILITY = 1
+  }
+Release_Site_8 RELEASE_SITE
+  {
+   SHAPE = Scene.Thin
+   MOLECULE = Bm
+   CONCENTRATION = Bm_IC
+   RELEASE_PROBABILITY = 1
+  }
+Release_Site_9 RELEASE_SITE
+  {
+   SHAPE = Scene.Thin
+   MOLECULE = Bf'
+   DENSITY = Bf_IC
+   RELEASE_PROBABILITY = 1
+  }
+Release_Site_10 RELEASE_SITE
+  {
+   SHAPE = Scene.Thin
+   MOLECULE = VSCC_0'
+   /*NUMBER_TO_RELEASE = 20*/
+   DENSITY = VSCC_IC
+   RELEASE_PROBABILITY = 1
+  }
+Release_Site_11 RELEASE_SITE
+  {
+   SHAPE = Scene.Thin[PSD]
+   /*MOLECULE = NMDAR'
+   NUMBER_TO_RELEASE = n_NMDAR*/
+   MOLECULE = NMDAR_0'
+   /*DENSITY = NMDAR_IC*/
+   NUMBER_TO_RELEASE = n_NMDAR
+   RELEASE_PROBABILITY = 1
+  }
+Release_Site_12 RELEASE_SITE
+  {
+   SHAPE = Scene.Thin[PSD]
+   MOLECULE = AMPAR_0'
+   /*DENSITY = AMPAR_IC*/
+   NUMBER_TO_RELEASE = n_AMPAR
+   RELEASE_PROBABILITY = 1
+  }
+Release_Site_13 RELEASE_SITE
+  {
+   SHAPE = SPHERICAL
+   LOCATION = [0, 0, 1.32]
+   SITE_RADIUS = 0
+   MOLECULE = glu
+   NUMBER_TO_RELEASE = n_glu
+   RELEASE_PROBABILITY = 1
+  }
+}
+
+sprintf(seed,"%05g",SEED)
+
+VIZ_OUTPUT
+{
+  MODE = CELLBLENDER
+  FILENAME = "./thin/control/viz_data_control/seed_" & seed & "/Scene"
+  MOLECULES
+  {
+    NAME_LIST {ALL_MOLECULES}
+    /*ITERATION_NUMBERS {ALL_DATA @ [0, 10000]}*/
+    ITERATION_NUMBERS {ALL_DATA @ [[0 TO iters STEP 200]]}
+    /*ITERATION_NUMBERS {ALL_DATA @ ALL_ITERATIONS}*/
+  }
+}
+
+VIZ_OUTPUT
+{ 
+  MODE = NONE
+  FILENAME = "./thin/control/viz_data_none/seed_" & seed & "/Scene"
+  MOLECULES
+  { 
+    NAME_LIST {ALL_MOLECULES}
+    ITERATION_NUMBERS {ALL_DATA @ ALL_ITERATIONS}
+  }
+}
+
+REACTION_DATA_OUTPUT
+{
+  STEP=1e-06
+  {COUNT[Ca2,Scene.Thin]}=> "./thin/control/react_data_control/Ca2.spine." & seed & ".dat"
+  /*{COUNT[Ca2,Scene.SA]}=> "./thin/control/react_data_control/Ca2.SA." & seed & ".dat"*/
+  {COUNT[Ca2,WORLD]}=> "./thin/control/react_data_control/Ca2.World." & seed & ".dat"
+  {COUNT[CaBm,Scene.Thin]}=> "./thin/control/react_data_control/CaBm.spine." & seed & ".dat"
+  /*{COUNT[CaBm,Scene.SA]}=> "./thin/control/react_data_control/seed_" & seed & ".CaBm.SA.dat"*/
+  {COUNT[CaBf,Scene.Thin]}=> "./thin/control/react_data_control/CaBf.spine." & seed & ".dat"
+  {COUNT[Bf,Scene.Thin]}=> "./thin/control/react_data_control/Bf.spine." & seed & ".dat"
+  {COUNT[Bm,Scene.Thin]}=> "./thin/control/react_data_control/Bm.spine." & seed & ".dat"
+  {COUNT[CaBf,WORLD]+COUNT[CaBm,WORLD]+COUNT[PMCA1,WORLD]+COUNT[NCX1,WORLD]+COUNT[SERCAx1,WORLD]+COUNT[SERCAx2,WORLD]+COUNT[SERCAy1,WORLD]+COUNT[SERCAy2,WORLD]+COUNT[Ca2,Scene.Thin]}=> "./thin/control/react_data_control/Ca2_total.spine." & seed & ".dat"
+  /*{COUNT[NMDAR,WORLD]}=> "./thin/control/react_data_control/NMDAR.spine." & seed & ".dat"*/
+  {COUNT[VSCC,WORLD]}=> "./thin/control/react_data_control/VSCC.spine." & seed & ".dat"
+  {COUNT[NMDAR,WORLD]}=> "./thin/control/react_data_control/NMDAR.spine." & seed & ".dat"
+  {COUNT[NMDAR,WORLD] + COUNT[NMDAR_D,WORLD] + COUNT[NMDAR_2,WORLD] + COUNT[NMDAR_B,WORLD] + COUNT[NMDAR_DB,WORLD] + COUNT[NMDAR_2B,WORLD]}=> "./thin/control/react_data_control/NMDAR_bound.spine." & seed & ".dat"
+  {COUNT[PMCA1,WORLD]}=> "./thin/control/react_data_control/PMCA.spine." & seed & ".dat"
+  {COUNT[NCX1,WORLD]}=> "./thin/control/react_data_control/NCX.spine." & seed & ".dat"
+  {TRIGGER[Ca2Null,Scene.Thin]}=> "./thin/control/react_data_control/rxn_decay.spine." & seed & ".dat"
+  {TRIGGER[rxn_NMDAR,Scene.Thin]}=> "./thin/control/react_data_control/rxn_NMDAR.spine." & seed & ".dat"
+  {TRIGGER[rxn_VSCC,Scene.Thin]}=> "./thin/control/react_data_control/rxn_VSCC.spine." & seed & ".dat"
+  {TRIGGER[rxn_PMCA,Scene.Thin]}=> "./thin/control/react_data_control/rxn_PMCA.spine." & seed & ".dat"
+  {TRIGGER[rxn_NCX,Scene.Thin]}=> "./thin/control/react_data_control/rxn_NCX.spine." & seed & ".dat"
+  {TRIGGER[rxn_PMCA_leak,Scene.Thin]}=> "./thin/control/react_data_control/rxn_PMCAleak.spine." & seed & ".dat"
+  {TRIGGER[rxn_NCX_leak,Scene.Thin]}=> "./thin/control/react_data_control/rxn_NCXleak.spine." & seed & ".dat"
+  /*{TRIGGER[rxn_SERCA1f,Scene.SA]}=> "./thin/control/react_data_control/rxn_SERCA1.spine." & seed & ".dat"
+  {TRIGGER[rxn_SERCA2f,Scene.SA]}=> "./thin/control/react_data_control/rxn_SERCA2.spine." & seed & ".dat"
+  {TRIGGER[rxn_SERCA1r,Scene.SA]}=> "./thin/control/react_data_control/rxn_SERCA1r.spine." & seed & ".dat"
+  {TRIGGER[rxn_SERCA2r,Scene.SA]}=> "./thin/control/react_data_control/rxn_SERCA2r.spine." & seed & ".dat"
+  {TRIGGER[rxn_SERCA_leak,Scene.SA]}=> "./thin/control/react_data_control/rxn_SERCA_leak.spine." & seed & ".dat"*/
+}

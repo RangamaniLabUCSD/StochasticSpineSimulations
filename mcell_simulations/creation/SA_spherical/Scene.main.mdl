@@ -1,0 +1,170 @@
+/*mdl file for a test simulation that utilizes vscc rates scaled by a time bioexponential (all files are the same as in no_biexp, with the exception of the vscc_rate_scaled.py file in python_scripts)*/
+
+/* DEFINE PARAMETERS */
+Ca_cyto_IC = 1e-7
+Ca_ER_IC = 6e-5
+Ca_ECS_IC = 0
+Bf_IC = 4791 /*525*/
+Bm_IC = 2e-5 /*7.87e-5*/
+n_NMDAR = 1 /*50*/
+VSCC_IC = 2 /*20*/
+PMCA_IC_HEAD = 998 /* um^-2 */
+PMCA_IC_NECK = 998 /*488*/ /* um^-2 */
+NCX_IC_HEAD = 142 /* um^-2 */
+NCX_IC_NECK = 142 /*488*/ /* um^-2 */
+SERCA_IC = 1000 /* um^-2 */
+k_CaBm_f = 1e6 /*1*/
+k_CaBm_r = 1
+k_Ca_N = 50
+k_Ca_Bf_f = 1e6 /*1*/
+k_Ca_Bf_r = 2
+k_SA_leak = 0.1608
+k_PMCA_1 = 1.5e8    /*    units=M^-1 s^-1 */
+k_PMCA_2 = 15    /*    units=s^-1 */
+k_PMCA_3 = 12    /*    units=s^-1 */
+k_PMCA_leak = 4.3    /*    units=s^-1 */
+k_NCX_1 = 3e8    /*    units=M^-1 s^-1 */
+k_NCX_2 = 300    /*    units=s^-1 */
+k_NCX_3 = 600    /*    units=s^-1 */
+k_NCX_leak = 19.4    /*    units=s^-1 */
+k_SERCA_x0x1 = 2e8    /*    units=M^-1 s^-1 */
+k_SERCA_x1x0 = 83.7    /*    units=s^-1 */
+k_SERCA_x1x2 = 1e8    /*    units=M^-1 s^-1 */
+k_SERCA_x2x1 = 167.4    /*    units=s^-1 */
+k_SERCA_x2y2 = 0.6    /*    units=s^-1 */
+k_SERCA_y2x2 = 0.097    /*    units=s^-1 */
+k_SERCA_x0y0 = 1.2e-3
+k_SERCA_y0x0 = 0.4    /*    units=s^-1 */
+k_SERCA_y0y1 = 12    /*    units=s^-1 */
+k_SERCA_y1y0 = 30.02    /*    units=s^-1 */
+k_SERCA_y1y2 = 6    /*    units=s^-1 */
+k_SERCA_y2y1 = 60.04    /*    units=s^-1 */
+k_SERCA_leak = 0.1608    /*    units=s^-1 */
+
+ITERATIONS = 10000
+TIME_STEP = 1e-6
+VACANCY_SEARCH_DISTANCE = 10
+
+INCLUDE_FILE = "Scene.initialization.mdl"
+
+INCLUDE_FILE = "Scene.molecules.mdl"
+
+INCLUDE_FILE = "Scene.surface.mdl"
+
+INCLUDE_FILE = "Scene.reactions.mdl"
+
+INCLUDE_FILE = "Scene.geometry.mdl"
+
+INCLUDE_FILE = "Scene.regions.mdl"
+
+INSTANTIATE Scene OBJECT
+{
+  Spherical OBJECT Spherical {}
+  SA OBJECT SA {}
+  Release_Site_1 RELEASE_SITE
+  {
+   SHAPE = Scene.Spherical
+   MOLECULE = Ca2
+   CONCENTRATION = Ca_cyto_IC
+   RELEASE_PROBABILITY = 1
+  }
+  Release_Site_2 RELEASE_SITE
+  {
+   SHAPE = Scene.SA
+   MOLECULE = Ca2
+   CONCENTRATION = Ca_ER_IC
+   RELEASE_PROBABILITY = 1
+  }
+  Release_Site_3 RELEASE_SITE
+  {
+   SHAPE = Scene.SA
+   MOLECULE = SERCAx'
+   DENSITY = SERCA_IC
+   RELEASE_PROBABILITY = 1
+  }
+  Release_Site_4 RELEASE_SITE
+  {
+   SHAPE = Scene.Spherical[head]
+   MOLECULE = PMCA'
+   DENSITY = PMCA_IC_HEAD
+   RELEASE_PROBABILITY = 1
+  }
+Release_Site_5 RELEASE_SITE
+  {
+   SHAPE = Scene.Spherical[neck]
+   MOLECULE = PMCA'
+   DENSITY = PMCA_IC_NECK
+   RELEASE_PROBABILITY = 1
+  }
+Release_Site_6 RELEASE_SITE
+  {
+   SHAPE = Scene.Spherical[head]
+   MOLECULE = NCX'
+   DENSITY = NCX_IC_HEAD
+   RELEASE_PROBABILITY = 1
+  }
+Release_Site_7 RELEASE_SITE
+  {
+   SHAPE = Scene.Spherical[neck]
+   MOLECULE = NCX'
+   DENSITY = NCX_IC_NECK
+   RELEASE_PROBABILITY = 1
+  }
+Release_Site_8 RELEASE_SITE
+  {
+   SHAPE = Scene.Spherical
+   MOLECULE = Bm
+   CONCENTRATION = Bm_IC
+   RELEASE_PROBABILITY = 1
+  }
+Release_Site_9 RELEASE_SITE
+  {
+   SHAPE = Scene.Spherical
+   MOLECULE = Bf'
+   DENSITY = Bf_IC
+   RELEASE_PROBABILITY = 1
+  }
+Release_Site_10 RELEASE_SITE
+  {
+   SHAPE = Scene.Spherical
+   MOLECULE = VSCC_0'
+   /*NUMBER_TO_RELEASE = 20*/
+   DENSITY = VSCC_IC
+   RELEASE_PROBABILITY = 1
+  }
+Release_Site_11 RELEASE_SITE
+  {
+   SHAPE = Scene.Spherical[PSD]
+   MOLECULE = NMDAR'
+   NUMBER_TO_RELEASE = n_NMDAR
+   RELEASE_PROBABILITY = 1
+  }
+}
+
+sprintf(seed,"%05g",SEED)
+
+VIZ_OUTPUT
+{
+  MODE = CELLBLENDER
+  FILENAME = "./viz_data/seed_" & seed & "/Scene"
+  MOLECULES
+  {
+    NAME_LIST {ALL_MOLECULES}
+    ITERATION_NUMBERS {ALL_DATA @ [0,10000,20000,30000,40000,50000,60000,70000,80000,90000,100000]}/*ALL_ITERATIONS}*/
+  }
+}
+
+REACTION_DATA_OUTPUT
+{
+  STEP=1e-06
+  {COUNT[Ca2,Scene.Spherical]}=> "./react_data_SA_spherical/Ca2_added.spine." & seed & ".dat"
+  {COUNT[Ca2,Scene.Spherical]-COUNT[Ca2,Scene.SA]}=> "./react_data_SA_spherical/Ca2.spine." & seed & ".dat"
+  {COUNT[Ca2,Scene.SA]}=> "./react_data_SA_spherical/Ca2.SA." & seed & ".dat"
+  {COUNT[Ca2,WORLD]}=> "./react_data_SA_spherical/Ca2.World." & seed & ".dat"
+  {COUNT[CaBm,Scene.Spherical]}=> "./react_data_SA_spherical/CaBm.spine." & seed & ".dat"
+  {COUNT[CaBm,Scene.SA]}=> "./react_data_SA_spherical/CaBm.SA." & seed & ".dat"
+  {COUNT[CaBf,Scene.Spherical]}=> "./react_data_SA_spherical/CaBf.spine." & seed & ".dat"
+  {COUNT[Bf,Scene.Spherical]}=> "./react_data_SA_spherical/Bf.spine." & seed & ".dat"
+  {COUNT[Bm,Scene.Spherical]}=> "./react_data_SA_spherical/Bm.spine." & seed & ".dat"
+  {COUNT[CaBf,WORLD]+COUNT[CaBm,WORLD]+COUNT[PMCA1,WORLD]+COUNT[NCX1,WORLD]+COUNT[SERCAx1,WORLD]+COUNT[SERCAx2,WORLD]+COUNT[SERCAy1,WORLD]+COUNT[SERCAy2,WORLD]+COUNT[Ca2,Scene.Spherical]}=> "./react_data_SA_spherical/Ca2_total.spine." & seed & ".dat"
+}
