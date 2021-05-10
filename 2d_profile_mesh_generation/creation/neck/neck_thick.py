@@ -8,7 +8,7 @@ NUM_POINTS = 50
 
 points = []
 
-with open("../mushroom.txt") as meshfile:
+with open("../spherical.txt") as meshfile:
 	meshfile.seek(0)
 	for line in meshfile:
 		values = line.split(" ")
@@ -127,6 +127,10 @@ ax.set(xlim = (0, 1.05*lim), ylim = (0, 1.05*lim))
 for point in new_points:
 	ax.plot(point[0], point[1], 'ro')
 plt.show()
+
+with open("neck_thick.txt", "w+") as outfile:
+    for point in points:
+        outfile.write(str(point[0]) + " " + str(point[1]) + "\n")
 
 print(new_points)
 

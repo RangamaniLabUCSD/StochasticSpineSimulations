@@ -1,0 +1,37 @@
+#!/bin/bash
+
+COMMAND() {
+	python make_blendfile.py $1 $2
+	/Applications/Blender/blender.app/Contents/MacOS/blender output.blend --python output_blend.py $1 $2
+	python graph_write.py $1 $2
+}
+
+GEOMETRIES=("thin" "mushroom" "filopodial")
+#GEOMETRIES=("filopodial")
+
+SEEDS=(1 6 12 30 34)
+
+SIM_LIST=()
+
+for geometry in ${GEOMETRIES[@]} ; do
+	sims=$(ls $geometry)
+	for sim in ${sims[@]} ; do
+		SIM_LIST=(${SIM_LIST[@]} "$geometry/$sim")
+	done
+done
+
+### testing purposes
+#SIM_LIST=("mushroom/SA")
+#SEEDS=(34)
+
+mkdir figure_output
+mkdir figure_output/supp
+
+source /Users/mvhsan/anaconda3/etc/profile.d/conda.sh
+conda activate base
+
+for sim in ${SIM_LIST[@]} ; do
+	for seed in ${SEEDS[@]} ; do
+		COMMAND $sim $seed
+	done
+done

@@ -9,7 +9,7 @@ NUM_POINTS = 50
 points = []
 y_origs = []
 
-with open("../spherical.txt") as meshfile:
+with open("../mushroom.txt") as meshfile:
 	meshfile.seek(0)
 	for line in meshfile:
 		values = line.split(" ")
@@ -116,6 +116,11 @@ plt.show()
 
 print(new_points)
 
+with open("SA-out-big.txt", "w+") as outfile:
+	for point in new_points:
+		outfile.write(str(point[1]) + " " + str(point[0]) + "\n")
+
+'''
 segs = []
 for i in range(len(new_points) - 1):
 	segs.append([i, i + 1])
@@ -141,4 +146,4 @@ params = ng.libngpy._meshing.MeshingParameters(maxh=0.05, optsteps2d=3)
 mesh = ng.libngpy._csg.GenerateMesh(geo, params)
 
 mesh.Export('SA_size.stl', 'STL Format')
-
+'''

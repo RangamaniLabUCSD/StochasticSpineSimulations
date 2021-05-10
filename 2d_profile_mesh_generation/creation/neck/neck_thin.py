@@ -128,6 +128,10 @@ for point in new_points:
 	ax.plot(point[0], point[1], 'ro')
 plt.show()
 
+with open("neck_thin.txt", "w+") as outfile:
+    for point in new_points:
+        outfile.write(str(point[1]) + " " + str(point[0]) + "\n")
+
 print(new_points)
 
 segs = []

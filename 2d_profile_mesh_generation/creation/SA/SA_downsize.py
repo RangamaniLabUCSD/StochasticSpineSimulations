@@ -116,6 +116,11 @@ plt.show()
 
 print(new_points)
 
+with open("SA-out-small.txt", "w+") as outfile:
+	for point in new_points:
+		outfile.write(str(point[1]) + " " + str(point[0]) + "\n")
+
+'''
 segs = []
 for i in range(len(new_points) - 1):
 	segs.append([i, i + 1])
@@ -142,3 +147,4 @@ mesh = ng.libngpy._csg.GenerateMesh(geo, params)
 
 mesh.Export('SA_size.stl', 'STL Format')
 
+'''
