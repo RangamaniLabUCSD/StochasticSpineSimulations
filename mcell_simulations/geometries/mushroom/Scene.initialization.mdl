@@ -1,4 +1,4 @@
-iters = 50000
+iters = 70000
 dt = 5e-7
 
 ITERATIONS = iters
